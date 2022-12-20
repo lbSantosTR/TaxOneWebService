@@ -1,0 +1,25 @@
+{
+    "TaxOneCredentials": {
+        "login": "",
+        "password": "",
+        "empresa": "077",
+        "estabelecimento": "LBS01",
+        "dataIni": "20000101",
+        "dataFim": "20221231"
+
+    },
+
+    "ReuseCredentials": {
+        "token": "",
+        "lote": ""
+    },
+
+    "APIurls": {
+        "Auth": "https://qa.taxone.thomsonreuters.com/safx/authentication",
+        "Lote":"https://qa.taxone.thomsonreuters.com/safx/carga/geraNumLote",
+        "Carga":"https://qa.taxone.thomsonreuters.com/safx/carga/2",
+        "ConsultaCarga":"https://qa.taxone.thomsonreuters.com/safx/carga/consultaLote",
+        "Importacao":"https://qa.taxone.thomsonreuters.com/safx/carga/importar",
+        "ConsultaImportacao":"https://qa.taxone.thomsonreuters.com/safx/carga/consultaLoteImportacao"
+    }
+}
