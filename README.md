@@ -16,7 +16,7 @@ Este arquivo possui três objetos principais:
 - ***ReuseCredentials*** aqui podemos preencher com o **TOKEN/LOTE** caso queiramos reutilizar um **TOKEN/LOTE** que já criamos ou ainda não importamos. Se não for o caso podemos deixar estas informações vazias que o processo irá gerar pra gente.
 - ***APIurls*** aqui configuramos o caminho das APIs que iremos utilizar, podemos configurar para outros ambientes caso o queira.
 
-Precisamos separar os arquivos de SAFX e colocarmos em uma pasta que chamei de ***Files***, o programa irá percorrer todos os arquivos dentro desta pasta para importar para o TaxOne. 
+Precisamos separar os arquivos de SAFX e colocarmos em uma pasta que chamei de ***Files*** (necessário criar), o programa irá percorrer todos os arquivos dentro desta pasta para importar para o TaxOne. 
 
 Se possuirmos mais de um arquivo eles serão encaixados dentro de um mesmo lote.
 
