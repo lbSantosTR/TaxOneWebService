@@ -176,12 +176,17 @@ async function executorSendCargaRequest(token, lote, jobs) {
   let cargaTentative = 0;
 
   //Verificando se ainda existem processos com o status "Carga em fila de processamento"
-  while (cargaProcessRunning.length > 0 && cargaTentative <= 30) {
+  while (
+    cargaProcessRunning.length > 0 &&
+    cargaTentative <= config.ApiConfigs.cargaTentatives
+  ) {
     responseCarga = await getCargaResponse(token, lote);
     cargaProcessRunning = responseCarga.filter((response) =>
       response.mensagem.includes("processamento")
     );
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) =>
+      setTimeout(resolve, config.ApiConfigs.cargaInterval)
+    );
     cargaTentative++;
   }
 
@@ -199,9 +204,14 @@ async function executorSendImportacaoRequest(token, lote, process) {
     let responseImp = await getImportacaoResponse(token, lote);
     let ImpTentative = 0;
 
-    while (responseImp === undefined && ImpTentative <= 50) {
+    while (
+      responseImp === undefined &&
+      ImpTentative <= config.ApiConfigs.importTentatives
+    ) {
       responseImp = await getImportacaoResponse(token, lote);
-      await new Promise((resolve) => setTimeout(resolve, 10000));
+      await new Promise((resolve) =>
+        setTimeout(resolve, config.ApiConfigs.importInterval)
+      );
       ImpTentative++;
     }
 
@@ -213,18 +223,24 @@ async function executorSendImportacaoRequest(token, lote, process) {
       path.join(__dirname, "output", "log.txt"),
       JSON.stringify(processSucess)
     );
-    if (processSucess.errors.length > 0) {
-      processSucess.errors.forEach(async (element) => {
-        await exportToFile(
-          path.join(__dirname, "output", element.safx, "errors.txt"),
-          JSON.stringify(element)
-        );
-      });
-    }
+    console.log("====================");
+    console.log(processSucess[0].erros);
   }
 }
 
 async function Execute() {
+  //Show Configurations
+  console.log("===================================================");
+  console.log(`Parâmetros para execução:`);
+  console.log(
+    `Consultas de carga ${config.ApiConfigs.cargaTentatives}x a cada ${config.ApiConfigs.cargaInterval}ms`
+  );
+  console.log(
+    `Consultas de importação ${config.ApiConfigs.importTentatives}x a cada ${config.ApiConfigs.importInterval}ms`
+  );
+
+  console.log("===================================================");
+
   //Parte relacionada a Leitura das SAFX e transformando em JSON
   const jobs = await executeJob(path.join(__dirname, "Files"));
 
